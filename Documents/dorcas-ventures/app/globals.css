@@ -1,0 +1,41 @@
+/* ── Brand tokens ── */
+:root {
+  --crimson:   #8B0000;
+  --red:       #C0392B;
+  --charcoal:  #2C3E50;
+  --gold:      #C9A84C;
+  --gold2:     #E8C96A;
+  --cream:     #FDF6EC;
+  --dark:      #0a0000;
+  --shadow:    0 4px 30px rgba(139,0,0,.12);
+  --shadow-lg: 0 12px 50px rgba(139,0,0,.2);
+  --radius:    12px;
+  --radius-lg: 20px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  color: #222; background: #fff; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ── Shared section utilities (used across components) ── */
+.sectionLabel {
+  font-size: .72rem; color: var(--crimson); font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase; margin-bottom: 12px;
+}
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; color: var(--charcoal); line-height: 1.2; margin-bottom: 16px;
+}
+.sectionTitle em { font-style: italic; color: var(--crimson); }
+.sectionSub { color: #666; line-height: 1.7; max-width: 520px; font-size: .97rem; }
+.goldLine {
+  display: block; width: 52px; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px; margin: 18px 0;
+}

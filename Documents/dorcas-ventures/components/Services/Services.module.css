@@ -1,0 +1,8 @@
+.section{padding:90px 6%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:44px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.item{padding:36px;border:1px solid #f0e8e0;background:#fff;transition:background .3s;display:flex;gap:20px}
+.item:hover{background:var(--cream)}
+.num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:800;color:rgba(139,0,0,.1);line-height:1;flex-shrink:0}
+.title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--charcoal);margin-bottom:8px}
+.desc{font-size:.85rem;color:#888;line-height:1.65}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}

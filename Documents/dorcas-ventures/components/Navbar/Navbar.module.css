@@ -1,0 +1,19 @@
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:76px;background:rgba(10,0,0,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,.15);transition:box-shadow .3s}
+.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.18)}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{height:50px;width:auto;object-fit:contain}
+.name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:#fff;letter-spacing:.04em}
+.slogan{font-size:.68rem;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+.links{display:flex;gap:8px;align-items:center}
+.link{color:rgba(255,255,255,.82);font-size:.82rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 12px;border-radius:6px;transition:color .2s,background .2s}
+.link:hover{color:var(--gold);background:rgba(201,168,76,.08)}
+.cta{background:var(--gold);color:#1a0000;padding:9px 22px;border-radius:8px;font-weight:700;font-size:.82rem;letter-spacing:.05em;transition:background .2s,transform .15s}
+.cta:hover{background:var(--gold2);transform:translateY(-1px)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+.mobile{display:none;position:fixed;top:76px;left:0;right:0;background:rgba(10,0,0,.97);padding:20px 0;border-bottom:1px solid rgba(201,168,76,.2);z-index:999;transform:translateY(-10px);opacity:0;transition:transform .3s,opacity .3s}
+.mobile.open{display:block;transform:translateY(0);opacity:1}
+.mobile a{display:block;padding:14px 32px;color:rgba(255,255,255,.88);font-size:.9rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06)}
+.mobile a:last-child{border:none;color:var(--gold)}
+@media(max-width:900px){.links{display:none}.burger{display:flex}.slogan{display:none}}
+@media(max-width:768px){.nav{padding:0 20px;height:64px}}

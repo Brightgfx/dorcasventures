@@ -1,0 +1,11 @@
+.about{padding:90px 6%;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.imgWrap{position:relative;height:480px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.badge{position:absolute;bottom:-20px;right:-20px;background:var(--crimson);color:#fff;border-radius:var(--radius);padding:20px 24px;text-align:center;box-shadow:0 8px 32px rgba(139,0,0,.4);border:3px solid rgba(201,168,76,.3)}
+.badgeNum{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:var(--gold);display:block}
+.badgeLbl{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.feat{display:flex;align-items:flex-start;gap:12px;background:var(--cream);border-radius:var(--radius);padding:14px;border-left:3px solid var(--gold)}
+.icon{font-size:1.3rem;margin-top:2px}
+.featTitle{font-weight:700;font-size:.88rem;color:var(--charcoal)}
+.featSub{font-size:.78rem;color:#888;margin-top:2px}
+@media(max-width:900px){.about{grid-template-columns:1fr}.imgWrap{height:320px}.badge{right:10px;bottom:-14px}.feats{grid-template-columns:1fr}}
