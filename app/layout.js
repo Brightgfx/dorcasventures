@@ -1,8 +1,20 @@
 import './globals.css';
 
+// Link previews (WhatsApp, Facebook, X…) use these plus app/opengraph-image.jpg;
+// app/icon.png and app/apple-icon.png become the browser and home-screen icons.
 export const metadata = {
+  metadataBase: new URL('https://dorcas-ventures.vercel.app'),
   title: 'Dorcas Ventures – Home of Quality Plasters',
   description: "Ghana's premier supplier of premium plastering and ceiling materials.",
+  openGraph: {
+    title: 'Dorcas Ventures – Home of Quality Plasters',
+    description: "Ghana's premier supplier of premium plastering and ceiling materials.",
+    url: '/',
+    siteName: 'Dorcas Ventures',
+    locale: 'en_GH',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({ children }) {
