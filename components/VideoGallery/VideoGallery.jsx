@@ -1,17 +1,58 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { VIDEO_ITEMS } from '@/lib/constants';
 import styles from './VideoGallery.module.css';
 
 export default function VideoGallery() {
+  const gridRef = useRef(null);
   const refs = useRef([]);
-  const [playing, setPlaying] = useState(null);
+  const [active, setActive] = useState(null);
+  const [canHover, setCanHover] = useState(true);
 
-  // Only one clip plays at a time
-  const play = i => {
-    refs.current.forEach((v, j) => { if (v && j !== i) v.pause(); });
-    refs.current[i]?.play();
-  };
+  // Mouse devices play on hover; touch devices play the card in the middle
+  useEffect(() => {
+    setCanHover(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  }, []);
+
+  useEffect(() => {
+    if (canHover) return;
+    const grid = gridRef.current;
+    let raf = null;
+    const update = () => {
+      raf = null;
+      const g = grid.getBoundingClientRect();
+      const onScreen = g.top < innerHeight * 0.7 && g.bottom > innerHeight * 0.3;
+      const mid = g.left + g.width / 2;
+      let best = null, bestDist = Infinity;
+      refs.current.forEach((v, i) => {
+        if (!v) return;
+        const r = v.getBoundingClientRect();
+        const dist = Math.abs(r.left + r.width / 2 - mid);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      setActive(onScreen ? best : null);
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    grid.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    return () => {
+      grid.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [canHover]);
+
+  // Only the active clip plays
+  useEffect(() => {
+    refs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, [active]);
 
   return (
     <section className={styles.videos} id="videos">
@@ -20,29 +61,32 @@ export default function VideoGallery() {
       <span className="goldLine" />
       <p className="sectionSub">From our warehouse to your site: watch how we produce, store and deliver quality plaster materials.</p>
 
-      <div className={styles.grid}>
+      <div ref={gridRef} className={styles.grid}>
         {VIDEO_ITEMS.map((v, i) => (
-          <div key={v.src} className={`${styles.card} ${playing === i ? styles.active : ''}`}>
+          <div
+            key={v.src}
+            className={`${styles.card} ${active === i ? styles.active : ''}`}
+            onMouseEnter={canHover ? () => setActive(i) : undefined}
+            onMouseLeave={canHover ? () => setActive(null) : undefined}
+          >
             <video
               ref={el => (refs.current[i] = el)}
               src={v.src}
               poster={v.poster}
               preload="none"
+              muted
+              loop
               playsInline
-              controls={playing === i}
-              onPlay={() => setPlaying(i)}
-              onEnded={() => setPlaying(null)}
+              disablePictureInPicture
               className={styles.video}
             />
-            {playing !== i && (
-              <button className={styles.cover} onClick={() => play(i)} aria-label={`Play ${v.title}`}>
-                <span className={styles.play} />
-                <span className={styles.info}>
-                  <span className={styles.tag}>{v.tag}</span>
-                  <span className={styles.title}>{v.title}</span>
-                </span>
-              </button>
-            )}
+            <div className={styles.cover}>
+              <span className={styles.play} />
+              <span className={styles.info}>
+                <span className={styles.tag}>{v.tag}</span>
+                <span className={styles.title}>{v.title}</span>
+              </span>
+            </div>
           </div>
         ))}
       </div>
