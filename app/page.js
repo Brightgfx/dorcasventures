@@ -7,6 +7,7 @@ import CEO          from '@/components/CEO/CEO';
 import Ambassador   from '@/components/Ambassador/Ambassador';
 import Partners     from '@/components/Partners/Partners';
 import Products     from '@/components/Products/Products';
+import VideoGallery from '@/components/VideoGallery/VideoGallery';
 import WhyUs        from '@/components/WhyUs/WhyUs';
 import Services     from '@/components/Services/Services';
 import Testimonials from '@/components/Testimonials/Testimonials';
@@ -27,6 +28,7 @@ export default function Home() {
         <Ambassador />
         <Partners />
         <Products />
+        <VideoGallery />
         <WhyUs />
         <Services />
         <Testimonials />
