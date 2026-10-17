@@ -8,10 +8,20 @@ export default function VideoGallery() {
   const refs = useRef([]);
   const [active, setActive] = useState(null);
   const [canHover, setCanHover] = useState(true);
+  const [near, setNear] = useState(false);
 
   // Mouse devices play on hover; touch devices play the card in the middle
   useEffect(() => {
     setCanHover(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  }, []);
+
+  // Start buffering once the section is about to scroll into view
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setNear(true); io.disconnect(); }
+    }, { rootMargin: '800px 0px' });
+    io.observe(gridRef.current);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -71,9 +81,9 @@ export default function VideoGallery() {
           >
             <video
               ref={el => (refs.current[i] = el)}
-              src={v.src}
+              src={near ? v.src : undefined}
               poster={v.poster}
-              preload="none"
+              preload={canHover || Math.abs(i - (active ?? 0)) <= 1 ? 'auto' : 'metadata'}
               muted
               loop
               playsInline
